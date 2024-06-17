@@ -1,0 +1,127 @@
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+body{
+    background:#222;
+    color: azure;
+    font-family:'Courier New', Courier, monospace;
+}
+.crud{
+    width: 80%;
+    margin: auto;
+}
+.head{
+    text-align: center;
+    text-transform: uppercase;
+    margin:10px 0;
+}
+.head h1{
+
+color: white;
+letter-spacing: 4px;
+}
+
+input{
+    width: 100%;
+    height: 30px;
+    outline: none;
+    border: none;
+    background-color: #111;
+    margin: 4px 0;
+    border-radius: 2px;
+    -webkit-border-radius: 2px;
+    -moz-border-radius: 2px;
+    -ms-border-radius: 2px;
+    -o-border-radius: 2px;
+    padding: 4px;
+    color:#666;
+    transition: all .3s;
+    -webkit-transition: all .3s;
+    -moz-transition: all .3s;
+    -ms-transition: all .3s;
+    -o-transition: all .3s;
+}
+input:focus{
+    background-color:#000;
+    border:1px solid rgb(117, 30, 30);
+    caret-color: rgb(117, 30, 30);
+    transition: all .3s;
+    -webkit-transition: all .3s;
+    -moz-transition: all .3s;
+    -ms-transition: all .3s;
+    -o-transition: all .3s;
+    transform:scale(1.03) ;
+    -webkit-transform:scale(1.03) ;
+    -moz-transform:scale(1.03) ;
+    -ms-transform:scale(1.03) ;
+    -o-transform:scale(1.03) ;
+}
+input::placeholder{
+color:#666;
+}
+.price input{
+    width:20%;
+}
+#total{
+    background-color:rgb(117, 30, 30);
+    padding:5px 4px;
+    border-radius:2px;
+    -webkit-border-radius:2px;
+    -moz-border-radius:2px;
+    -ms-border-radius:2px;
+    -o-border-radius:2px;
+    
+}
+#total::before{
+    content:'Total: ';
+}
+button{
+
+    width: 100%;
+    height: 30px;
+    border:none;
+    border-radius:2px;
+    cursor: pointer;
+    background-color: rgb(117, 30, 30);
+    color: #fff;
+    transition: all .4s;
+    -webkit-transition: all .4s;
+    -moz-transition: all .4s;
+    -ms-transition: all .4s;
+    -o-transition: all .4s;
+}
+button:hover{
+    background-color: rgb(145, 39, 39);
+    letter-spacing: 1px;
+    transition: all .4s;
+    -webkit-transition: all .4s;
+    -moz-transition: all .4s;
+    -ms-transition: all .4s;
+    -o-transition: all .4s;
+}
+.btnSearch{
+    display: flex;
+    justify-content: space-between;
+
+}
+.search{
+    padding: 4px 0;
+}
+.btnSearch button{
+    width:45%;
+}
+table{
+    width: 100%;
+    text-align: center;
+    margin: 10px 0;
+
+}
+table th{
+    text-transform: uppercase;
+
+}
+th,td{
+    padding:5px;
+}
