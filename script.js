@@ -46,10 +46,7 @@ if (localStorage.product != null) {
 }
 
 submit.onclick = function () {
-  // Clear previous errors
   clearErrors();
-
-  // Validate inputs
   let isValid = validateInputs();
 
   if (isValid) {
@@ -59,12 +56,11 @@ submit.onclick = function () {
       taxes: taxes.value,
       ads: ads.value,
       discount: discount.value,
-      total: total.innerHTML.split(' ')[1], // Extract the number part
+      total: total.innerHTML.split(' ')[1],
       count: count.value,
       category: category.value
     };
 
-    // Add multiple entries if count is greater than 1
     if (newPro.count > 1) {
       for (let i = 0; i < newPro.count; i++) {
         dataPro.push(newPro);
@@ -176,6 +172,8 @@ function deleteData(i) {
 }
 
 function updateData(i) {
+  submit.innerHTML="Update";
+  submit.classList.toggle('edit');
   clearErrors();
   title.value = dataPro[i].title;
   price.value = dataPro[i].price;
@@ -202,7 +200,9 @@ function updateData(i) {
     localStorage.setItem('product', JSON.stringify(dataPro));
     clearData();
     showData();
-
+    submit.innerHTML="create";
+    submit.classList.toggle('edit');
+    getTotal();
     // Restore the original submit function
     submit.onclick = function () {
       clearErrors();
