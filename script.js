@@ -173,6 +173,14 @@ function showData() {
   } else {
     next.style.display = "block";
   }
+
+  if (dataPro.length == 0) {
+    document.getElementById("pageNumber").innerText = `No data found`;
+    document.getElementById("pageNumber").classList.add("notFound");
+  } else {
+    document.getElementById("pageNumber").innerText = `${currentPage}`;
+    document.getElementById("pageNumber").classList.remove("notFound");
+  }
 }
 
 function prevPage() {
