@@ -12,28 +12,25 @@ let search = document.getElementById("search");
 
 let titleError = document.getElementById("titleError");
 let priceError = document.getElementById("priceError");
-let taxesError = document.getElementById("taxesError");
-let adsError = document.getElementById("adsError");
-let discountError = document.getElementById("discountError");
 let countError = document.getElementById("countError");
 let categoryError = document.getElementById("categoryError");
 
 function getTotal() {
-  if (price.value != '') {
+  if (price.value != "") {
     let result = +price.value + +taxes.value + +ads.value - +discount.value;
     total.innerHTML = `${result}`;
     total.style.backgroundColor = "#040";
   } else {
-    total.innerHTML = '';
+    total.innerHTML = "";
     total.style.backgroundColor = "rgb(117, 30, 30)";
   }
 }
 
 // Add event listeners to input fields to call getTotal function on value change
-price.addEventListener('input', getTotal);
-taxes.addEventListener('input', getTotal);
-ads.addEventListener('input', getTotal);
-discount.addEventListener('input', getTotal);
+price.addEventListener("input", getTotal);
+taxes.addEventListener("input", getTotal);
+ads.addEventListener("input", getTotal);
+discount.addEventListener("input", getTotal);
 
 // Initialize total
 getTotal();
@@ -53,12 +50,12 @@ submit.onclick = function () {
     let newPro = {
       title: title.value,
       price: price.value,
-      taxes: taxes.value,
-      ads: ads.value,
-      discount: discount.value,
-      total: total.innerHTML.split(' ')[1],
+      taxes: taxes.value ? taxes.value : 0,
+      ads: ads.value ? ads.value : 0,
+      discount: discount.value ? discount.value : 0,
+      total: total.innerHTML,
       count: count.value,
-      category: category.value
+      category: category.value,
     };
 
     if (newPro.count > 1) {
@@ -69,7 +66,7 @@ submit.onclick = function () {
       dataPro.push(newPro);
     }
 
-    localStorage.setItem('product', JSON.stringify(dataPro));
+    localStorage.setItem("product", JSON.stringify(dataPro));
     clearData();
     showData();
   }
@@ -90,24 +87,6 @@ function validateInputs() {
     priceError.textContent = "Valid price is required.";
     isValid = false;
   }
-  if (taxes.value.trim() === "" || isNaN(taxes.value) || +taxes.value < 0) {
-    taxes.classList.add("invalid");
-    taxesError.style.display = "block";
-    taxesError.textContent = "Valid taxes are required.";
-    isValid = false;
-  }
-  if (ads.value.trim() === "" || isNaN(ads.value) || +ads.value < 0) {
-    ads.classList.add("invalid");
-    adsError.style.display = "block";
-    adsError.textContent = "Valid ads are required.";
-    isValid = false;
-  }
-  if (discount.value.trim() === "" || isNaN(discount.value) || +discount.value < 0) {
-    discount.classList.add("invalid");
-    discountError.style.display = "block";
-    discountError.textContent = "Valid discount is required.";
-    isValid = false;
-  }
   if (count.value.trim() === "" || isNaN(count.value) || +count.value <= 0) {
     count.classList.add("invalid");
     countError.style.display = "block";
@@ -125,26 +104,26 @@ function validateInputs() {
 }
 
 function clearErrors() {
-  let inputs = [title, price, taxes, ads, discount, count, category];
-  let errors = [titleError, priceError, taxesError, adsError, discountError, countError, categoryError];
+  let inputs = [title, price, count, category];
+  let errors = [titleError, priceError, countError, categoryError];
 
-  inputs.forEach(input => input.classList.remove("invalid"));
-  errors.forEach(error => error.style.display = "none");
+  inputs.forEach((input) => input.classList.remove("invalid"));
+  errors.forEach((error) => (error.style.display = "none"));
 }
 
 function clearData() {
-  title.value = '';
-  price.value = '';
-  taxes.value = '';
-  ads.value = '';
-  discount.value = '';
-  total.innerHTML = '0';
-  count.value = '';
-  category.value = '';
+  title.value = "";
+  price.value = "";
+  taxes.value = "";
+  ads.value = "";
+  discount.value = "";
+  total.innerHTML = "";
+  count.value = "";
+  category.value = "";
 }
 
 function showData() {
-  let table = '';
+  let table = "";
   for (let i = 0; i < dataPro.length; i++) {
     table += `
       <tr>
@@ -161,19 +140,19 @@ function showData() {
       </tr>
     `;
   }
-  document.getElementById('tbody').innerHTML = table;
+  document.getElementById("tbody").innerHTML = table;
 }
 showData();
 
 function deleteData(i) {
   dataPro.splice(i, 1);
-  localStorage.setItem('product', JSON.stringify(dataPro));
+  localStorage.setItem("product", JSON.stringify(dataPro));
   showData();
 }
 
 function updateData(i) {
-  submit.innerHTML="Update";
-  submit.classList.toggle('edit');
+  submit.innerHTML = "Update";
+  submit.classList.toggle("edit");
   clearErrors();
   title.value = dataPro[i].title;
   price.value = dataPro[i].price;
@@ -189,32 +168,34 @@ function updateData(i) {
     let newPro = {
       title: title.value,
       price: price.value,
-      taxes: taxes.value,
-      ads: ads.value,
-      discount: discount.value,
-      total: total.innerHTML.split(' ')[1],
+      taxes: taxes.value ? taxes.value : 0,
+      ads: ads.value ? ads.value : 0,
+      discount: discount.value ? discount.value : 0,
+      total: total.innerHTML,
       count: count.value,
-      category: category.value
+      category: category.value,
     };
     dataPro[i] = newPro;
-    localStorage.setItem('product', JSON.stringify(dataPro));
+    localStorage.setItem("product", JSON.stringify(dataPro));
     clearData();
     showData();
-    submit.innerHTML="create";
-    submit.classList.toggle('edit');
+    submit.innerHTML = "create";
+    submit.classList.toggle("edit");
     getTotal();
+
     // Restore the original submit function
+
     submit.onclick = function () {
       clearErrors();
       let newPro = {
         title: title.value,
         price: price.value,
-        taxes: taxes.value,
-        ads: ads.value,
-        discount: discount.value,
-        total: total.innerHTML.split(' ')[1],
+        taxes: taxes.value ? taxes.value : 0,
+        ads: ads.value ? ads.value : 0,
+        discount: discount.value ? discount.value : 0,
+        total: total.innerHTML,
         count: count.value,
-        category: category.value
+        category: category.value,
       };
 
       if (newPro.count > 1) {
@@ -225,7 +206,7 @@ function updateData(i) {
         dataPro.push(newPro);
       }
 
-      localStorage.setItem('product', JSON.stringify(dataPro));
+      localStorage.setItem("product", JSON.stringify(dataPro));
       clearData();
       showData();
     };
@@ -233,11 +214,14 @@ function updateData(i) {
 }
 
 // Real-time search functionality
-search.addEventListener('input', function () {
+search.addEventListener("input", function () {
   let searchValue = search.value.toLowerCase();
-  let table = '';
+  let table = "";
   for (let i = 0; i < dataPro.length; i++) {
-    if (dataPro[i].title.toLowerCase().includes(searchValue) || dataPro[i].category.toLowerCase().includes(searchValue)) {
+    if (
+      dataPro[i].title.toLowerCase().includes(searchValue) ||
+      dataPro[i].category.toLowerCase().includes(searchValue)
+    ) {
       table += `
         <tr>
           <td>${i + 1}</td>
@@ -254,18 +238,14 @@ search.addEventListener('input', function () {
       `;
     }
   }
-  document.getElementById('tbody').innerHTML = table;
+  document.getElementById("tbody").innerHTML = table;
 });
 
-
 // Add real-time validation event listeners
-title.addEventListener('input', () => validateTitle());
-price.addEventListener('input', () => validatePrice());
-taxes.addEventListener('input', () => validateTaxes());
-ads.addEventListener('input', () => validateAds());
-discount.addEventListener('input', () => validateDiscount());
-count.addEventListener('input', () => validateCount());
-category.addEventListener('input', () => validateCategory());
+title.addEventListener("input", () => validateTitle());
+price.addEventListener("input", () => validatePrice());
+count.addEventListener("input", () => validateCount());
+category.addEventListener("input", () => validateCategory());
 
 function validateTitle() {
   if (title.value.trim() === "") {
@@ -286,39 +266,6 @@ function validatePrice() {
   } else {
     price.classList.remove("invalid");
     priceError.style.display = "none";
-  }
-}
-
-function validateTaxes() {
-  if (taxes.value.trim() === "" || isNaN(taxes.value) || +taxes.value < 0) {
-    taxes.classList.add("invalid");
-    taxesError.style.display = "block";
-    taxesError.textContent = "Valid taxes are required.";
-  } else {
-    taxes.classList.remove("invalid");
-    taxesError.style.display = "none";
-  }
-}
-
-function validateAds() {
-  if (ads.value.trim() === "" || isNaN(ads.value) || +ads.value < 0) {
-    ads.classList.add("invalid");
-    adsError.style.display = "block";
-    adsError.textContent = "Valid ads are required.";
-  } else {
-    ads.classList.remove("invalid");
-    adsError.style.display = "none";
-  }
-}
-
-function validateDiscount() {
-  if (discount.value.trim() === "" || isNaN(discount.value) || +discount.value < 0) {
-    discount.classList.add("invalid");
-    discountError.style.display = "block";
-    discountError.textContent = "Valid discount is required.";
-  } else {
-    discount.classList.remove("invalid");
-    discountError.style.display = "none";
   }
 }
 
