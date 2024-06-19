@@ -165,7 +165,10 @@ function showData() {
     prev.style.display = "block";
   }
 
-  if (paginatedData.length < itemsPerPage || currentPage * itemsPerPage >= dataPro.length) {
+  if (
+    paginatedData.length < itemsPerPage ||
+    currentPage * itemsPerPage >= dataPro.length
+  ) {
     next.style.display = "none";
   } else {
     next.style.display = "block";
@@ -207,7 +210,6 @@ function updateData(i) {
   count.value = dataPro[i].count;
   category.value = dataPro[i].category;
 
-  // Update the submit button to save the updated product
   submit.onclick = function () {
     let newPro = {
       title: title.value,
@@ -226,8 +228,6 @@ function updateData(i) {
     submit.innerHTML = "create";
     submit.classList.toggle("edit");
     getTotal();
-
-    // Restore the original submit function
 
     submit.onclick = function () {
       clearErrors();
@@ -257,35 +257,68 @@ function updateData(i) {
   };
 }
 
-// Real-time search functionality
 search.addEventListener("input", function () {
   let searchValue = search.value.toLowerCase();
   let table = "";
-  for (let i = 0; i < dataPro.length; i++) {
-    if (
-      dataPro[i].title.toLowerCase().includes(searchValue) ||
-      dataPro[i].category.toLowerCase().includes(searchValue)
-    ) {
-      table += `
-        <tr>
-          <td>${i + 1}</td>
-          <td>${dataPro[i].title}</td>
-          <td>${dataPro[i].price}</td>
-          <td>${dataPro[i].taxes}</td>
-          <td>${dataPro[i].ads}</td>
-          <td>${dataPro[i].discount}</td>
-          <td>${dataPro[i].total}</td>
-          <td>${dataPro[i].category}</td>
-          <td><button id="update" onclick="updateData(${i})">Update</button></td>
-          <td><button id="delete" onclick="deleteData(${i})">Delete</button></td>
-        </tr>
+  let filteredData = dataPro.filter(
+    (item) =>
+      item.title.toLowerCase().includes(searchValue) ||
+      item.category.toLowerCase().includes(searchValue)
+  );
+  currentPage = 1;
+
+  const startIndex = (currentPage - 1) * itemsPerPage;
+  const endIndex = startIndex + itemsPerPage;
+  const paginatedData = filteredData.slice(startIndex, endIndex);
+
+  for (let i = 0; i < paginatedData.length; i++) {
+    table += `
+          <tr>
+              <td>${startIndex + i + 1}</td>
+              <td>${paginatedData[i].title}</td>
+              <td>${paginatedData[i].price}</td>
+              <td>${paginatedData[i].taxes}</td>
+              <td>${paginatedData[i].ads}</td>
+              <td>${paginatedData[i].discount}</td>
+              <td>${paginatedData[i].total}</td>
+              <td>${paginatedData[i].category}</td>
+              <td><button id="update" onclick="updateData(${dataPro.indexOf(
+                paginatedData[i]
+              )})">Update</button></td>
+              <td><button id="delete" onclick="deleteData(${dataPro.indexOf(
+                paginatedData[i]
+              )})">Delete</button></td>
+          </tr>
       `;
-    }
+  }
+  if (filteredData.length == 0) {
+    document.getElementById("pageNumber").innerText = `No data found`;
+    document.getElementById("pageNumber").classList.add("notFound");
+  } else {
+    document.getElementById("pageNumber").innerText = `${currentPage}`;
+    document.getElementById("pageNumber").classList.remove("notFound");
   }
   document.getElementById("tbody").innerHTML = table;
+
+  let prev = document.getElementById("prev");
+  let next = document.getElementById("next");
+
+  if (currentPage === 1) {
+    prev.style.display = "none";
+  } else {
+    prev.style.display = "block";
+  }
+
+  if (
+    paginatedData.length < itemsPerPage ||
+    currentPage * itemsPerPage >= filteredData.length
+  ) {
+    next.style.display = "none";
+  } else {
+    next.style.display = "block";
+  }
 });
 
-// Add real-time validation event listeners
 title.addEventListener("input", () => validateTitle());
 price.addEventListener("input", () => validatePrice());
 count.addEventListener("input", () => validateCount());
