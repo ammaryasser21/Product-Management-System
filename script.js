@@ -9,6 +9,9 @@ let count = document.getElementById("count");
 let category = document.getElementById("category");
 let submit = document.getElementById("submit");
 let search = document.getElementById("search");
+let pageNum = document.getElementById("pageNumber");
+let prev = document.getElementsByClassName("prev");
+let next = document.getElementsByClassName("next");
 
 let titleError = document.getElementById("titleError");
 let priceError = document.getElementById("priceError");
@@ -122,26 +125,67 @@ function clearData() {
   category.value = "";
 }
 
+let currentPage = 1;
+const itemsPerPage = 10;
+
 function showData() {
   let table = "";
-  for (let i = 0; i < dataPro.length; i++) {
+  const startIndex = (currentPage - 1) * itemsPerPage;
+  const endIndex = startIndex + itemsPerPage;
+  const paginatedData = dataPro.slice(startIndex, endIndex);
+  for (let i = 0; i < paginatedData.length; i++) {
     table += `
       <tr>
-        <td>${i + 1}</td>
-        <td>${dataPro[i].title}</td>
-        <td>${dataPro[i].price}</td>
-        <td>${dataPro[i].taxes}</td>
-        <td>${dataPro[i].ads}</td>
-        <td>${dataPro[i].discount}</td>
-        <td>${dataPro[i].total}</td>
-        <td>${dataPro[i].category}</td>
-        <td><button id="update" onclick="updateData(${i})">Update</button></td>
-        <td><button id="delete" onclick="deleteData(${i})">Delete</button></td>
+        <td>${startIndex + i + 1}</td>
+        <td>${paginatedData[i].title}</td>
+        <td>${paginatedData[i].price}</td>
+        <td>${paginatedData[i].taxes}</td>
+        <td>${paginatedData[i].ads}</td>
+        <td>${paginatedData[i].discount}</td>
+        <td>${paginatedData[i].total}</td>
+        <td>${paginatedData[i].category}</td>
+        <td><button id="update" onclick="updateData(${
+          startIndex + i
+        })">Update</button></td>
+        <td><button id="delete" onclick="deleteData(${
+          startIndex + i
+        })">Delete</button></td>
       </tr>
     `;
   }
   document.getElementById("tbody").innerHTML = table;
+  document.getElementById("pageNumber").innerText = `${currentPage}`;
+
+  let prev = document.getElementById("prev");
+  let next = document.getElementById("next");
+
+  if (currentPage == 1) {
+    prev.style.display = "none";
+  } else {
+    prev.style.display = "block";
+  }
+
+  if (paginatedData.length < itemsPerPage || currentPage * itemsPerPage >= dataPro.length) {
+    next.style.display = "none";
+  } else {
+    next.style.display = "block";
+  }
 }
+
+function prevPage() {
+  if (currentPage > 1) {
+    currentPage--;
+    showData();
+  }
+}
+
+function nextPage() {
+  if (currentPage * itemsPerPage < dataPro.length) {
+    currentPage++;
+    showData();
+  }
+}
+
 showData();
 
 function deleteData(i) {

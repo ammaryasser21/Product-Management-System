@@ -36,6 +36,7 @@
         <div class="outputs">
             <div class="search">
                 <input type="text" id="search" placeholder="Search">
+
             </div>
 
             <table>
@@ -53,6 +54,14 @@
                 </tr>
                 <tbody id="tbody"></tbody>
             </table>
+            <!-- Add pagination controls in the HTML -->
+            <div id="pageControls">
+                <button id="prev" class="prev" onclick="prevPage()"><</button>
+                <span id="pageNumber"></span>
+                <button id="next" class="next" onclick="nextPage()">></button>
+            </div>
+              
+
         </div>
     </div>
     <script src="script.js"></script>

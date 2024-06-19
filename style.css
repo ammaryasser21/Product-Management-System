@@ -1,29 +1,33 @@
-*{
+* {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
 }
-body{
-    background:#222;
+
+body {
+    background: #222;
     color: azure;
-    font-family:'Courier New', Courier, monospace;
+    font-family: 'Courier New', Courier, monospace;
 }
-.crud{
+
+.crud {
     width: 80%;
     margin: auto;
 }
-.head{
+
+.head {
     text-align: center;
     text-transform: uppercase;
-    margin:10px 0;
-}
-.head h1{
-
-color: white;
-letter-spacing: 4px;
+    margin: 10px 0;
 }
 
-input{
+.head h1 {
+
+    color: white;
+    letter-spacing: 4px;
+}
+
+input {
     width: 100%;
     height: 30px;
     outline: none;
@@ -36,53 +40,61 @@ input{
     -ms-border-radius: 2px;
     -o-border-radius: 2px;
     padding: 4px;
-    color:#666;
+    color: #666;
     transition: all .3s;
     -webkit-transition: all .3s;
     -moz-transition: all .3s;
     -ms-transition: all .3s;
     -o-transition: all .3s;
 }
-input:focus{
-    background-color:#000;
-    border:1px solid #007bff;
+
+input:focus {
+    background-color: #000;
+    border: 1px solid #007bff;
     caret-color: #007bff;
     transition: all .3s;
     -webkit-transition: all .3s;
     -moz-transition: all .3s;
     -ms-transition: all .3s;
     -o-transition: all .3s;
-    transform:scale(1.03) ;
-    -webkit-transform:scale(1.03) ;
-    -moz-transform:scale(1.03) ;
-    -ms-transform:scale(1.03) ;
-    -o-transform:scale(1.03) ;
+    transform: scale(1.03);
+    -webkit-transform: scale(1.03);
+    -moz-transform: scale(1.03);
+    -ms-transform: scale(1.03);
+    -o-transform: scale(1.03);
 }
-input::placeholder{
-color:#666;
+
+input::placeholder {
+    color: #666;
 }
-.price input{
-    width:20%;
+
+.price input {
+    width: 20%;
 }
-#total{
-    background-color:rgb(117, 30, 30);
-    padding:5px 4px;
-    border-radius:2px;
-    -webkit-border-radius:2px;
-    -moz-border-radius:2px;
-    -ms-border-radius:2px;
-    -o-border-radius:2px;
-    
+
+#total {
+    background-color: rgb(117, 30, 30);
+    padding: 5px 4px;
+    border-radius: 2px;
+    -webkit-border-radius: 2px;
+    -moz-border-radius: 2px;
+    -ms-border-radius: 2px;
+    -o-border-radius: 2px;
+    margin: 4px 0;
+
 }
-#total::before{
-    content:'Total: ';
+
+#total::before {
+    content: 'Total: ';
+    margin: 4px 0;
 }
-button{
+
+button {
 
     width: 100%;
     height: 30px;
-    border:none;
-    border-radius:2px;
+    border: none;
+    border-radius: 2px;
     cursor: pointer;
     transition: all .4s;
     -webkit-transition: all .4s;
@@ -90,7 +102,8 @@ button{
     -ms-transition: all .4s;
     -o-transition: all .4s;
 }
-button:hover{
+
+button:hover {
     letter-spacing: 1px;
     transition: all .4s;
     -webkit-transition: all .4s;
@@ -98,49 +111,61 @@ button:hover{
     -ms-transition: all .4s;
     -o-transition: all .4s;
 }
-button#submit{
-    margin:4px 0;
+
+button#submit {
+    margin: 4px 0;
 }
 
-.btnSearch{
+.btnSearch {
     display: flex;
     justify-content: space-between;
 }
 
-.search{
+.search {
     margin-top: 10px;
     padding: 4px 0;
 }
-.btnSearch button{
-    width:45%;
+
+.btnSearch button {
+    width: 45%;
 }
-table{
+
+table {
     width: 100%;
     text-align: center;
-    margin: 10px 0;
-
+    margin: 10px auto;
+    overflow-x: auto;
 }
-table th{
+
+table th {
     text-transform: uppercase;
 
 }
-th,td{
-    padding:5px;
+
+th,
+td {
+    padding: 5px;
 }
 
 button#searchTitle,
 button#searchCategory,
-button.submit {
+button.submit,
+button.prev,
+button.next,
+#pageNumber {
     border: 1px solid #007bff;
-    background-color:transparent;
+    background-color: transparent;
     color: #007bff;
 
 }
+
 button#searchTitle:hover,
 button#searchCategory:hover,
-button.submit:hover {
+button.submit:hover,
+button.prev:hover,
+button.next:hover {
     border: none;
-    background-color:#007bff;
+    background-color: #007bff;
     color: #ffffff;
     transition: all .4s;
     -webkit-transition: all .4s;
@@ -148,41 +173,45 @@ button.submit:hover {
     -ms-transition: all .4s;
     -o-transition: all .4s;
 }
-button.edit{
+
+button.edit {
     border: 1px solid #ffc107;
-    background-color:transparent;
+    background-color: transparent;
     color: #ffc107;
 }
-button.edit:hover{
-    border:none;
-    background-color:#ffc107;
+
+button.edit:hover {
+    border: none;
+    background-color: #ffc107;
     color: #ffffff;
 }
 
 button#update {
     border: 1px solid #ffc107;
-    background-color:transparent;
+    background-color: transparent;
     color: #ffc107;
 }
+
 button#update:hover {
-    border:none;
-    background-color:#ffc107;
+    border: none;
+    background-color: #ffc107;
     color: #ffffff;
 }
 
 button#delete {
     border: 1px solid #dc3545;
-    background-color:transparent;
+    background-color: transparent;
     color: #dc3545;
 
 }
 
 button#delete:hover {
     border: none;
-    background-color:#dc3545;
+    background-color: #dc3545;
     color: #ffffff;
 
 }
+
 .error {
     margin: 4px 0;
     color: #dc3545;
@@ -193,4 +222,89 @@ button#delete:hover {
 input.invalid {
     border-color: #dc3545;
     caret-color: #dc3545;
+}
+
+#pageControls {
+    display: flex;
+    justify-content: flex-end;
+    align-items: stretch;
+    margin: 20px 5px;
+}
+#pageNumber {
+    font-size: 1.2em;
+    height: 30px;
+    border: 1px solid #007bff;
+    background-color: transparent;
+    color: #007bff;
+    border-radius: 0px;
+    cursor: pointer;
+    padding: 3px;
+}
+button#prev {
+    width: 40px;
+    border-right: none;
+    border-radius:0;    
+}
+button#prev:hover {
+    width: 40px;
+    border: 1px solid #007bff;
+    background-color: #007bff;
+    color: #ffffff;
+    transition: all .4s;
+    border-top-right-radius: none;
+    border-top-left-radius: none;
+    border-right: none;
+}
+
+button#next {
+    width: 40px;
+    border-radius:0;
+    border-left: none;
+}
+button#next:hover {
+    width: 40px;
+    border: 1px solid #007bff;
+    background-color: #007bff;
+    color: #ffffff;
+border-top-left-radius: none;
+border-top-right-radius: none;
+    border-left: none;
+}
+
+.outputs {
+    margin-bottom: 20px;
+}
+/* Media Queries for Mobile Devices */
+@media (max-width: 768px) {
+    .crud {
+        width: 95%;
+        margin: auto;
+    }
+
+    .btnSearch button {
+        width: 100%;
+        margin-bottom: 10px;
+    }
+
+    .price input {
+        width: 100%;
+    }
+
+    
+
+}
+@media (max-width:654px) {
+    table{
+        display: block;
+    }
+}
+
+@media (max-width: 480px) {
+    .head h1 {
+        font-size: 1.5em;
+    }
+
+    table, th, td {
+        font-size: 0.9em;
+    }
 }
