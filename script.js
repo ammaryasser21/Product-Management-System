@@ -1,4 +1,3 @@
-// Get DOM elements
 let title = document.getElementById("title");
 let price = document.getElementById("price");
 let taxes = document.getElementById("taxes");
@@ -47,6 +46,7 @@ if (localStorage.product != null) {
 
 submit.onclick = function () {
   clearErrors();
+  submit.classList.remove("edit");
   let isValid = validateInputs();
 
   if (isValid) {
@@ -207,7 +207,7 @@ function deleteData(i) {
 
 function updateData(i) {
   submit.innerHTML = "Update";
-  submit.classList.toggle("edit");
+  submit.classList.add("edit");
   clearErrors();
   title.value = dataPro[i].title;
   price.value = dataPro[i].price;
@@ -239,28 +239,33 @@ function updateData(i) {
 
     submit.onclick = function () {
       clearErrors();
-      let newPro = {
-        title: title.value,
-        price: price.value,
-        taxes: taxes.value ? taxes.value : 0,
-        ads: ads.value ? ads.value : 0,
-        discount: discount.value ? discount.value : 0,
-        total: total.innerHTML,
-        count: count.value,
-        category: category.value,
-      };
+  submit.classList.remove("edit");
+  let isValid = validateInputs();
 
-      if (newPro.count > 1) {
-        for (let i = 0; i < newPro.count; i++) {
-          dataPro.push(newPro);
-        }
-      } else {
+  if (isValid) {
+    let newPro = {
+      title: title.value,
+      price: price.value,
+      taxes: taxes.value ? taxes.value : 0,
+      ads: ads.value ? ads.value : 0,
+      discount: discount.value ? discount.value : 0,
+      total: total.innerHTML,
+      count: count.value,
+      category: category.value,
+    };
+
+    if (newPro.count > 1) {
+      for (let i = 0; i < newPro.count; i++) {
         dataPro.push(newPro);
       }
+    } else {
+      dataPro.push(newPro);
+    }
 
-      localStorage.setItem("product", JSON.stringify(dataPro));
-      clearData();
-      showData();
+    localStorage.setItem("product", JSON.stringify(dataPro));
+    clearData();
+    showData();
+  }
     };
   };
 }
